@@ -1,0 +1,9 @@
+diff a/plob-vue/src/assets/css/responsive.css b/plob-vue/src/assets/css/responsive.css	(rejected hunks)
+@@ -563,6 +563,7 @@
+     padding-bottom: 20px;
+     padding-left: 20px;
+     padding-right: 20px;
++    justify-content: space-between;
+   }
+   .single-fun-fact {
+     padding-left: 0;
