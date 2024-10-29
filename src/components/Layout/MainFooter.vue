@@ -38,48 +38,48 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-sm-2">
+        <div class="col-lg-2 col-sm-2">
           <div class="single-footer-widget">
             <h3>{{ footer.title }}</h3>
 
             <ul class="footer-links-list">
               <li v-for="quick in footer.quickLinks" :key="quick.id">
-                <router-link :to="quick.link">
+                <a :href="`/services-details/${quick.link}`">
                   {{ quick.title }}
-                </router-link>
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="col-lg-3 col-sm-2">
+        <div class="col-lg-2 col-sm-2">
           <div class="single-footer-widget">
             <h3>{{ footer.titleTwo }}</h3>
 
             <ul class="footer-links-list">
               <li v-for="about in footer.aboutLinks" :key="about.id">
-                <router-link :to="about.link">
+                <a :href="about.link">
                   {{ about.title }}
-                </router-link>
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <!--        <div class="col-lg-2 col-sm-6">-->
-        <!--          <div class="single-footer-widget">-->
-        <!--            <h3>{{ footer.titleThree }}</h3>-->
+        <div class="col-lg-2 col-sm-6">
+          <div class="single-footer-widget">
+            <h3>{{ footer.titleThree }}</h3>
 
-        <!--            <ul class="footer-links-list">-->
-        <!--              <li v-for="services in footer.servicesLinks" :key="services.id">-->
-        <!--                <router-link :to="services.link">-->
-        <!--                  {{ services.title }}-->
-        <!--                </router-link>-->
-        <!--              </li>-->
-        <!--            </ul>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <div class="col-lg-3 col-sm-2">
+            <ul class="footer-links-list">
+              <li v-for="services in footer.servicesLinks" :key="services.id">
+                <router-link :to="services.link">
+                  {{ services.title }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-2">
           <div class="single-footer-widget">
             <h3>{{ footer.titleFour }}</h3>
 
@@ -159,25 +159,20 @@
   </footer>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
-export default {
-  name: "MainFooter",
-  data() {
-    return {
-      footer: null,
-      currentYear: new Date().getFullYear(),
-    };
-  },
-  created: async function () {
-    const response = await axios.get(
-      "http://localhost:1337/api/footer?populate=deep",
-    );
-    const {
-      data: { attributes },
-    } = response.data;
-    this.footer = attributes;
-  },
-};
+const footer = ref(null);
+const currentYear = new Date().getFullYear();
+
+onMounted(async () => {
+  const response = await axios.get(
+    "http://localhost:1337/api/footer?populate=deep",
+  );
+  const {
+    data: { attributes },
+  } = response.data;
+  footer.value = attributes;
+});
 </script>

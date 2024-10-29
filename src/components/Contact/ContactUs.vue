@@ -97,9 +97,11 @@ const msg_subject = ref("");
 const message = ref("");
 
 const sendEmail = async () => {
-  const response = await axios.post("http://localhost:1337/email/send", {
+  const response = await axios.post("http://localhost:1337/api/send-emails", {
+    name: name.value,
     recipient: email.value,
-    subject: msg_subject.value || "来自联系表单的消息",
+    tel: phone_number.value,
+    job: msg_subject.value,
     message: message.value,
   });
 
